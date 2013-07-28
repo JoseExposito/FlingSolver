@@ -21,12 +21,12 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import android.test.AndroidTestCase;
-import com.eggsoftware.flingsolver.Board;
-import com.eggsoftware.flingsolver.Board.Direction;
+import com.eggsoftware.flingsolver.BoardSolver;
+import com.eggsoftware.flingsolver.BoardSolver.Direction;
 import com.eggsoftware.flingsolver.SolutionStep;
 
 /**
- * Tests for com.eggsoftware.flingsolver.Board
+ * Tests for com.eggsoftware.flingsolver.BoardSolver
  */
 public class BoardTest extends AndroidTestCase {
 
@@ -41,36 +41,36 @@ public class BoardTest extends AndroidTestCase {
 					{false, false, false, false, false, false, false},
 					{false, false, false, true,  false, false, false},
 					{false, false, false, false, false, false, true } };
-			Method method = Board.class.getDeclaredMethod("canMove", int.class, int.class, Board.Direction.class, boolean[][].class);
+			Method method = BoardSolver.class.getDeclaredMethod("canMove", int.class, int.class, BoardSolver.Direction.class, boolean[][].class);
 			method.setAccessible(true);
 
 			assertFalse("null direction", (Boolean)method.invoke(null, 0, 0, null, boardArray));
-			assertFalse("Out of range coordinate", (Boolean)method.invoke(null, 10, 0, Board.Direction.UP, boardArray));
-			assertFalse("Out of range coordinate", (Boolean)method.invoke(null, 0, 10, Board.Direction.UP, boardArray));
-			assertFalse("Out of range coordinate", (Boolean)method.invoke(null, 7, 8, Board.Direction.UP, boardArray));
-			assertFalse("Not Fling! in coordinate", (Boolean)method.invoke(null, 1, 1, Board.Direction.UP, boardArray));
+			assertFalse("Out of range coordinate", (Boolean)method.invoke(null, 10, 0, BoardSolver.Direction.UP, boardArray));
+			assertFalse("Out of range coordinate", (Boolean)method.invoke(null, 0, 10, BoardSolver.Direction.UP, boardArray));
+			assertFalse("Out of range coordinate", (Boolean)method.invoke(null, 7, 8, BoardSolver.Direction.UP, boardArray));
+			assertFalse("Not Fling! in coordinate", (Boolean)method.invoke(null, 1, 1, BoardSolver.Direction.UP, boardArray));
 
-			assertFalse("Border Fling!", (Boolean)method.invoke(null, 0, 0, Board.Direction.UP, boardArray));
-			assertFalse("Border Fling!", (Boolean)method.invoke(null, 7, 6, Board.Direction.DOWN, boardArray));
-			assertFalse("Border Fling!", (Boolean)method.invoke(null, 0, 0, Board.Direction.LEFT, boardArray));
-			assertFalse("Border Fling!", (Boolean)method.invoke(null, 7, 6, Board.Direction.RIGHT, boardArray));
+			assertFalse("Border Fling!", (Boolean)method.invoke(null, 0, 0, BoardSolver.Direction.UP, boardArray));
+			assertFalse("Border Fling!", (Boolean)method.invoke(null, 7, 6, BoardSolver.Direction.DOWN, boardArray));
+			assertFalse("Border Fling!", (Boolean)method.invoke(null, 0, 0, BoardSolver.Direction.LEFT, boardArray));
+			assertFalse("Border Fling!", (Boolean)method.invoke(null, 7, 6, BoardSolver.Direction.RIGHT, boardArray));
 
-			assertFalse("Stuck Fling!", (Boolean)method.invoke(null, 1, 0, Board.Direction.UP, boardArray));
-			assertFalse("Stuck Fling!", (Boolean)method.invoke(null, 0, 0, Board.Direction.DOWN, boardArray));
-			assertFalse("Stuck Fling!", (Boolean)method.invoke(null, 0, 1, Board.Direction.LEFT, boardArray));
-			assertFalse("Stuck Fling!", (Boolean)method.invoke(null, 0, 0, Board.Direction.RIGHT, boardArray));
+			assertFalse("Stuck Fling!", (Boolean)method.invoke(null, 1, 0, BoardSolver.Direction.UP, boardArray));
+			assertFalse("Stuck Fling!", (Boolean)method.invoke(null, 0, 0, BoardSolver.Direction.DOWN, boardArray));
+			assertFalse("Stuck Fling!", (Boolean)method.invoke(null, 0, 1, BoardSolver.Direction.LEFT, boardArray));
+			assertFalse("Stuck Fling!", (Boolean)method.invoke(null, 0, 0, BoardSolver.Direction.RIGHT, boardArray));
 
-			assertFalse("Not collide Fling!", (Boolean)method.invoke(null, 2, 2, Board.Direction.UP, boardArray));
-			assertFalse("Not collide Fling!", (Boolean)method.invoke(null, 2, 2, Board.Direction.DOWN, boardArray));
-			assertFalse("Not collide Fling!", (Boolean)method.invoke(null, 2, 2, Board.Direction.LEFT, boardArray));
-			assertFalse("Not collide Fling!", (Boolean)method.invoke(null, 2, 2, Board.Direction.RIGHT, boardArray));
-			assertFalse("Not collide Fling!", (Boolean)method.invoke(null, 6, 3, Board.Direction.DOWN, boardArray));
-			assertFalse("Not collide Fling!", (Boolean)method.invoke(null, 4, 5, Board.Direction.DOWN, boardArray));
+			assertFalse("Not collide Fling!", (Boolean)method.invoke(null, 2, 2, BoardSolver.Direction.UP, boardArray));
+			assertFalse("Not collide Fling!", (Boolean)method.invoke(null, 2, 2, BoardSolver.Direction.DOWN, boardArray));
+			assertFalse("Not collide Fling!", (Boolean)method.invoke(null, 2, 2, BoardSolver.Direction.LEFT, boardArray));
+			assertFalse("Not collide Fling!", (Boolean)method.invoke(null, 2, 2, BoardSolver.Direction.RIGHT, boardArray));
+			assertFalse("Not collide Fling!", (Boolean)method.invoke(null, 6, 3, BoardSolver.Direction.DOWN, boardArray));
+			assertFalse("Not collide Fling!", (Boolean)method.invoke(null, 4, 5, BoardSolver.Direction.DOWN, boardArray));
 
-			assertTrue("Can move Fling!", (Boolean)method.invoke(null, 3, 3, Board.Direction.UP, boardArray));
-			assertTrue("Can move Fling!", (Boolean)method.invoke(null, 3, 3, Board.Direction.DOWN, boardArray));
-			assertTrue("Can move Fling!", (Boolean)method.invoke(null, 3, 3, Board.Direction.LEFT, boardArray));
-			assertTrue("Can move Fling!", (Boolean)method.invoke(null, 3, 3, Board.Direction.RIGHT, boardArray));
+			assertTrue("Can move Fling!", (Boolean)method.invoke(null, 3, 3, BoardSolver.Direction.UP, boardArray));
+			assertTrue("Can move Fling!", (Boolean)method.invoke(null, 3, 3, BoardSolver.Direction.DOWN, boardArray));
+			assertTrue("Can move Fling!", (Boolean)method.invoke(null, 3, 3, BoardSolver.Direction.LEFT, boardArray));
+			assertTrue("Can move Fling!", (Boolean)method.invoke(null, 3, 3, BoardSolver.Direction.RIGHT, boardArray));
 		} catch (Exception e) {
 			fail();
 		}
@@ -80,7 +80,7 @@ public class BoardTest extends AndroidTestCase {
 
 		Method method = null;
 		try {
-			method = Board.class.getDeclaredMethod("applyTransformation", int.class, int.class, Board.Direction.class, boolean[][].class);
+			method = BoardSolver.class.getDeclaredMethod("applyTransformation", int.class, int.class, BoardSolver.Direction.class, boolean[][].class);
 			method.setAccessible(true);
 
 			boolean[][] boardArray = new boolean[][] { 
@@ -94,7 +94,7 @@ public class BoardTest extends AndroidTestCase {
 					{true,  false, true,  true,  false, false, true } };
 
 			// Basic UP
-			assertTrue(Arrays.deepEquals((boolean[][])method.invoke(null, 3, 3, Board.Direction.UP, boardArray), new boolean[][] { 
+			assertTrue(Arrays.deepEquals((boolean[][])method.invoke(null, 3, 3, BoardSolver.Direction.UP, boardArray), new boolean[][] { 
 					{false, false, false, false, false, false, false},
 					{false, false, false, true,  false, false, false},
 					{false, false, false, false, false, false, false},
@@ -106,7 +106,7 @@ public class BoardTest extends AndroidTestCase {
 			}));
 
 			// Basic DOWN
-			assertTrue(Arrays.deepEquals((boolean[][])method.invoke(null, 3, 3, Board.Direction.DOWN, boardArray), new boolean[][] { 
+			assertTrue(Arrays.deepEquals((boolean[][])method.invoke(null, 3, 3, BoardSolver.Direction.DOWN, boardArray), new boolean[][] { 
 					{false, false, false, true,  false, false, false},
 					{false, false, false, false, false, false, false},
 					{false, false, false, false, false, false, false},
@@ -118,7 +118,7 @@ public class BoardTest extends AndroidTestCase {
 			}));
 
 			// Basic LEFT
-			assertTrue(Arrays.deepEquals((boolean[][])method.invoke(null, 3, 3, Board.Direction.LEFT, boardArray), new boolean[][] { 
+			assertTrue(Arrays.deepEquals((boolean[][])method.invoke(null, 3, 3, BoardSolver.Direction.LEFT, boardArray), new boolean[][] { 
 					{false, false, false, true,  false, false, false},
 					{false, false, false, false, false, false, false},
 					{false, false, false, false, false, false, false},
@@ -130,7 +130,7 @@ public class BoardTest extends AndroidTestCase {
 			}));
 
 			// Basic RIGHT
-			assertTrue(Arrays.deepEquals((boolean[][])method.invoke(null, 3, 3, Board.Direction.RIGHT, boardArray), new boolean[][] { 
+			assertTrue(Arrays.deepEquals((boolean[][])method.invoke(null, 3, 3, BoardSolver.Direction.RIGHT, boardArray), new boolean[][] { 
 					{false, false, false, true,  false, false, false},
 					{false, false, false, false, false, false, false},
 					{false, false, false, false, false, false, false},
@@ -142,7 +142,7 @@ public class BoardTest extends AndroidTestCase {
 			}));
 
 			// Fling! cannon
-			assertTrue(Arrays.deepEquals((boolean[][])method.invoke(null, 7, 0, Board.Direction.RIGHT, boardArray), new boolean[][] { 
+			assertTrue(Arrays.deepEquals((boolean[][])method.invoke(null, 7, 0, BoardSolver.Direction.RIGHT, boardArray), new boolean[][] { 
 					{false, false, false, true,  false, false, false},
 					{false, false, false, false, false, false, false},
 					{false, false, false, false, false, false, false},
@@ -160,7 +160,7 @@ public class BoardTest extends AndroidTestCase {
 	public void testSolveBoard() {
 		// No solution
 		try {
-			ArrayList<SolutionStep> solution = Board.solveBoard(new boolean[][] { 
+			ArrayList<SolutionStep> solution = BoardSolver.solveBoard(new boolean[][] { 
 					{true,  false, false, false, false, false, false},
 					{false, true,  false, false, false, false, false},
 					{false, false, true,  false, false, false, false},
@@ -177,7 +177,7 @@ public class BoardTest extends AndroidTestCase {
 
 		// Easy solution
 		try {
-			ArrayList<SolutionStep> solution = Board.solveBoard(new boolean[][] { 
+			ArrayList<SolutionStep> solution = BoardSolver.solveBoard(new boolean[][] { 
 					{true,  false, false, false, true,  false, false},
 					{false, false, false, false, false, false, false},
 					{false, false, false, false, false, false, false},
@@ -197,7 +197,7 @@ public class BoardTest extends AndroidTestCase {
 		}
 		 
 		try {
-			ArrayList<SolutionStep> solution = Board.solveBoard(new boolean[][] { 
+			ArrayList<SolutionStep> solution = BoardSolver.solveBoard(new boolean[][] { 
 					{true,  false, false, false, true,  false, false},
 					{false, false, false, false, false, false, false},
 					{false, false, false, false, false, false, false},
@@ -218,7 +218,7 @@ public class BoardTest extends AndroidTestCase {
 		
 		// Hard solution
 		try {
-			ArrayList<SolutionStep> solution = Board.solveBoard(new boolean[][] { 
+			ArrayList<SolutionStep> solution = BoardSolver.solveBoard(new boolean[][] { 
 					{false, false, false, false, false, false, false},
 					{false, false, false, false, false, false, false},
 					{false, false, false, false, false, false, false},
@@ -245,7 +245,7 @@ public class BoardTest extends AndroidTestCase {
 		}
 		
 		try {
-			ArrayList<SolutionStep> solution = Board.solveBoard(new boolean[][] { 
+			ArrayList<SolutionStep> solution = BoardSolver.solveBoard(new boolean[][] { 
 					{false, false, false, false, false, false, false},
 					{true,  false, false, false, false, true,  true },
 					{false, false, false, false, false, false, true },
@@ -274,7 +274,7 @@ public class BoardTest extends AndroidTestCase {
 		}
 		
 		try {
-			ArrayList<SolutionStep> solution = Board.solveBoard(new boolean[][] { 
+			ArrayList<SolutionStep> solution = BoardSolver.solveBoard(new boolean[][] { 
 					{false, false, false, false, false, false, false},
 					{false, false, true,  true,  false, false, false},
 					{false, false, true,  false, false, false, true },

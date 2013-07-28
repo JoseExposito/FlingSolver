@@ -17,7 +17,7 @@
  */
 package com.eggsoftware.flingsolver;
 
-import com.eggsoftware.flingsolver.Board.Direction;
+import com.eggsoftware.flingsolver.BoardSolver.Direction;
 
 /**
  * Class to represent the solution of a board step by step.

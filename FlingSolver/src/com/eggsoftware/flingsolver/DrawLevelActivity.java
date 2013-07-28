@@ -17,8 +17,9 @@
  */
 package com.eggsoftware.flingsolver;
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.content.pm.ActivityInfo;
+import android.os.Bundle;
 import android.view.Menu;
 
 public class DrawLevelActivity extends Activity {
@@ -26,7 +27,9 @@ public class DrawLevelActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_draw_level);
+		//setContentView(R.layout.activity_draw_level);
+		this.setContentView(new BoardCanvas(this));
+		this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 	}
 
 	@Override

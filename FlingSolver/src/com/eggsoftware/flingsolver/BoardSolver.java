@@ -20,9 +20,9 @@ package com.eggsoftware.flingsolver;
 import java.util.ArrayList;
 import android.util.Log;
 
-public class Board {
+public class BoardSolver {
 
-	private static final String TAG = "Board";
+	private static final String TAG = "BoardSolver";
 	
 	/**
 	 * Dimensions of the board.
@@ -54,17 +54,17 @@ public class Board {
 		}
 
 		// Make a copy of the board to not modify them
-		boolean[][] boardCopy = Board.copyBoard(board);
+		boolean[][] boardCopy = BoardSolver.copyBoard(board);
 		
 		// Solve the board
-		int numberOfFlings = Board.getNumberOfFlingsInBoard(boardCopy);
+		int numberOfFlings = BoardSolver.getNumberOfFlingsInBoard(boardCopy);
 		if (numberOfFlings == 0) {
 			Log.d(TAG, "The boar  haven't got flings");
 			return null;
 		}
 		
 		ArrayList<SolutionStep> solution = new ArrayList<SolutionStep>();
-		boolean boardHasSolution = Board.solveBoardAux(boardCopy, numberOfFlings, solution);
+		boolean boardHasSolution = BoardSolver.solveBoardAux(boardCopy, numberOfFlings, solution);
 		return boardHasSolution ? solution : null;
 		
 	}
@@ -81,9 +81,9 @@ public class Board {
 				for (int col=0; col<BOARD_NUM_COLUMNS; col++) {
 					if (board[row][col]) {
 						for (Direction direction : Direction.values()) {
-							if (Board.canMove(row, col, direction, board)) {
+							if (BoardSolver.canMove(row, col, direction, board)) {
 								solutionSteps.add(new SolutionStep(row, col, direction));
-								if (Board.solveBoardAux(Board.applyTransformation(row, col, direction, board), numberOfFlings-1, solutionSteps))
+								if (BoardSolver.solveBoardAux(BoardSolver.applyTransformation(row, col, direction, board), numberOfFlings-1, solutionSteps))
 									return true;
 								solutionSteps.remove(solutionSteps.size()-1);
 							}
@@ -174,14 +174,14 @@ public class Board {
 	
 	/**
 	 * Moves the specified Fling! following the Fling! game rules.
-	 * Call canMove() before call Board methods to ensure that the movement it's possible.
+	 * Call canMove() before call BoardSolver methods to ensure that the movement it's possible.
 	 * @param  flingToMoveRow The row of the Fling! to move.
 	 * @param  flingToMoveCol The column of the Fling! to move.
 	 * @param  direction UP, DOWN, LEFT or RIGHT.
 	 * @return The new board.
 	 */
 	private static boolean[][] applyTransformation(int flingToMoveRow, int flingToMoveCol, Direction direction, boolean[][] board) {
-		boolean[][] resultBoard = Board.copyBoard(board);
+		boolean[][] resultBoard = BoardSolver.copyBoard(board);
 		boolean removeCurrentFling = true;
 		
 		if (direction == Direction.UP) {
@@ -189,7 +189,7 @@ public class Board {
 				if (resultBoard[row][flingToMoveCol]) {
 					resultBoard[row+1][flingToMoveCol] = true;
 					removeCurrentFling = (row != flingToMoveRow-1);
-					resultBoard = Board.applyTransformation(row, flingToMoveCol, direction, resultBoard);
+					resultBoard = BoardSolver.applyTransformation(row, flingToMoveCol, direction, resultBoard);
 					break;
 				}
 			}
@@ -199,7 +199,7 @@ public class Board {
 				if (resultBoard[row][flingToMoveCol]) {
 					resultBoard[row-1][flingToMoveCol] = true;
 					removeCurrentFling = (row != flingToMoveRow+1);
-					resultBoard = Board.applyTransformation(row, flingToMoveCol, direction, resultBoard);
+					resultBoard = BoardSolver.applyTransformation(row, flingToMoveCol, direction, resultBoard);
 					break;
 				}
 			}
@@ -209,7 +209,7 @@ public class Board {
 				if (resultBoard[flingToMoveRow][col]) {
 					resultBoard[flingToMoveRow][col+1] = true;
 					removeCurrentFling = (col != flingToMoveCol-1);
-					resultBoard = Board.applyTransformation(flingToMoveRow, col, direction, resultBoard);
+					resultBoard = BoardSolver.applyTransformation(flingToMoveRow, col, direction, resultBoard);
 					break;
 				}
 			}
@@ -219,7 +219,7 @@ public class Board {
 				if (resultBoard[flingToMoveRow][col]) {
 					resultBoard[flingToMoveRow][col-1] = true;
 					removeCurrentFling = (col != flingToMoveCol+1);
-					resultBoard = Board.applyTransformation(flingToMoveRow, col, direction, resultBoard);
+					resultBoard = BoardSolver.applyTransformation(flingToMoveRow, col, direction, resultBoard);
 					break;
 				}
 			}
