@@ -17,26 +17,49 @@
  */
 package com.eggsoftware.flingsolver;
 
+import java.util.ArrayList;
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.view.Menu;
+import android.util.Log;
+import android.view.View;
+import android.widget.FrameLayout;
 
-public class DrawLevelActivity extends Activity {
+public class DrawLevelActivity extends Activity implements SolveBoardAsyncTaskDelegate {
 
+	private BoardCanvas boardCanvas;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		//setContentView(R.layout.activity_draw_level);
-		this.setContentView(new BoardCanvas(this));
+		this.setContentView(R.layout.activity_draw_level);
 		this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+		
+		// Add an editable BoardCanvas
+		this.boardCanvas = new BoardCanvas(this);
+		this.boardCanvas.setAcceptEditFlings(true);
+		FrameLayout layout = (FrameLayout)findViewById(R.id.frameLayout);
+		layout.addView(this.boardCanvas);
+	}
+	
+	/**
+	 * Called when the solve button is pressed.
+	 * Solves the level and shows the steps.
+	 */
+	public void onSolveLevelClicked(View solveLevelButton) {
+		SolveBoardAsyncTask task = new SolveBoardAsyncTask(this, this.boardCanvas.getBoardRepresentation());
+		try {
+			task.execute();
+		} catch (Exception e) {
+			// TODO Show error
+			e.printStackTrace();
+		}
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.draw_level, menu);
-		return true;
+	public void boardSolved(SolveBoardAsyncTask task, ArrayList<SolutionStep> solution) {
+		// TODO Show solution
+		Log.d("", "Board solved :D");
 	}
-
+	
 }
