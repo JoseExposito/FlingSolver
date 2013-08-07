@@ -1,4 +1,4 @@
-package com.eggsoftware.flingsolver;
+package com.eggsoftware.flingsolver.solver;
 
 import java.util.ArrayList;
 

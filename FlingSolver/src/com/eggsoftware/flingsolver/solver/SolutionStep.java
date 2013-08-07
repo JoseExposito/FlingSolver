@@ -15,9 +15,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.eggsoftware.flingsolver;
+package com.eggsoftware.flingsolver.solver;
 
-import com.eggsoftware.flingsolver.BoardSolver.Direction;
+import com.eggsoftware.flingsolver.solver.BoardSolver.Direction;
 
 /**
  * Class to represent the solution of a board step by step.

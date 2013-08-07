@@ -21,9 +21,10 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import android.test.AndroidTestCase;
-import com.eggsoftware.flingsolver.BoardSolver;
-import com.eggsoftware.flingsolver.BoardSolver.Direction;
-import com.eggsoftware.flingsolver.SolutionStep;
+
+import com.eggsoftware.flingsolver.solver.BoardSolver;
+import com.eggsoftware.flingsolver.solver.SolutionStep;
+import com.eggsoftware.flingsolver.solver.BoardSolver.Direction;
 
 /**
  * Tests for com.eggsoftware.flingsolver.BoardSolver

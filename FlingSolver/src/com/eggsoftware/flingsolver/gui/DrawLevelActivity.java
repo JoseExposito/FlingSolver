@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.eggsoftware.flingsolver;
+package com.eggsoftware.flingsolver.gui;
 
 import java.util.ArrayList;
 import android.app.Activity;
@@ -24,6 +24,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
+import com.eggsoftware.flingsolver.R;
+import com.eggsoftware.flingsolver.solver.SolutionStep;
+import com.eggsoftware.flingsolver.solver.SolveBoardAsyncTask;
+import com.eggsoftware.flingsolver.solver.SolveBoardAsyncTaskDelegate;
 
 public class DrawLevelActivity extends Activity implements SolveBoardAsyncTaskDelegate {
 
