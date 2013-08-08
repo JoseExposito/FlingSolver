@@ -9,7 +9,7 @@
     tools:context=".DrawLevelActivity" >
 
     <FrameLayout
-        android:id="@+id/frameLayout"
+        android:id="@+id/mainLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

@@ -29,6 +29,9 @@ import com.eggsoftware.flingsolver.solver.SolutionStep;
 import com.eggsoftware.flingsolver.solver.SolveBoardAsyncTask;
 import com.eggsoftware.flingsolver.solver.SolveBoardAsyncTaskDelegate;
 
+/**
+ * Activity where the user can draw the level to solve.
+ */
 public class DrawLevelActivity extends Activity implements SolveBoardAsyncTaskDelegate {
 
 	/**
@@ -45,7 +48,7 @@ public class DrawLevelActivity extends Activity implements SolveBoardAsyncTaskDe
 		// Add an editable BoardCanvas
 		this.boardCanvas = new BoardCanvas(this);
 		this.boardCanvas.setAcceptEditFlings(true);
-		FrameLayout layout = (FrameLayout)this.findViewById(R.id.frameLayout);
+		FrameLayout layout = (FrameLayout)this.findViewById(R.id.mainLayout);
 		layout.addView(this.boardCanvas);
 	}
 	

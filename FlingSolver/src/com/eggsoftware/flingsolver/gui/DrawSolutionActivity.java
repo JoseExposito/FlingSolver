@@ -21,10 +21,13 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.widget.HorizontalScrollView;
+import android.support.v4.view.ViewPager;
 import com.eggsoftware.flingsolver.R;
 import com.eggsoftware.flingsolver.solver.SolutionStep;
 
+/**
+ * Activity with a ViewPager to present the solution of a Fling! level.
+ */
 public class DrawSolutionActivity extends Activity {
 
 	/**
@@ -42,8 +45,12 @@ public class DrawSolutionActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.activity_draw_solution);
 		this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-		
-		this.solution = this.getIntent().getExtras().getParcelableArrayList(SOLUTION_KEY);
-	}
 	
+		// Get the solution from the intent
+		this.solution = this.getIntent().getExtras().getParcelableArrayList(SOLUTION_KEY);
+		
+		// Add the pages to the ViewPager
+		ViewPager pager = (ViewPager) findViewById(R.id.viewPager);  
+        pager.setAdapter(new DrawSolutionPageAdapter(this, this.solution)); 
+	}	
 }
