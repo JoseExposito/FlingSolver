@@ -83,10 +83,14 @@ public class BoardCanvas extends View {
 	}
 	
 	/**
-	 * Returns the drawn board.
+	 * Returns or sets the drawn board.
 	 */
 	public boolean[][] getBoardRepresentation() {
 		return this.board;
+	}
+	
+	public void setBoardRepresentation(boolean[][] board) {
+		this.board = board;
 	}
 	
 	/**

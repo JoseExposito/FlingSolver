@@ -19,9 +19,9 @@ package com.eggsoftware.flingsolver.gui;
 
 import java.util.ArrayList;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import com.eggsoftware.flingsolver.R;
@@ -31,6 +31,9 @@ import com.eggsoftware.flingsolver.solver.SolveBoardAsyncTaskDelegate;
 
 public class DrawLevelActivity extends Activity implements SolveBoardAsyncTaskDelegate {
 
+	/**
+	 * Canvas where the user can draw their Fling! level.
+	 */
 	private BoardCanvas boardCanvas;
 	
 	@Override
@@ -42,7 +45,7 @@ public class DrawLevelActivity extends Activity implements SolveBoardAsyncTaskDe
 		// Add an editable BoardCanvas
 		this.boardCanvas = new BoardCanvas(this);
 		this.boardCanvas.setAcceptEditFlings(true);
-		FrameLayout layout = (FrameLayout)findViewById(R.id.frameLayout);
+		FrameLayout layout = (FrameLayout)this.findViewById(R.id.frameLayout);
 		layout.addView(this.boardCanvas);
 	}
 	
@@ -62,8 +65,13 @@ public class DrawLevelActivity extends Activity implements SolveBoardAsyncTaskDe
 
 	@Override
 	public void boardSolved(SolveBoardAsyncTask task, ArrayList<SolutionStep> solution) {
-		// TODO Show solution
-		Log.d("", "Board solved :D");
+		if (solution == null) {
+			// TODO Show error
+		} else {
+			Intent intent = new Intent(this, DrawSolutionActivity.class);
+			intent.putParcelableArrayListExtra(DrawSolutionActivity.SOLUTION_KEY, solution);
+			this.startActivity(intent);	
+		}
 	}
 	
 }

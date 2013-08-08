@@ -65,8 +65,19 @@ public class BoardSolver {
 		
 		ArrayList<SolutionStep> solution = new ArrayList<SolutionStep>();
 		boolean boardHasSolution = BoardSolver.solveBoardAux(boardCopy, numberOfFlings, solution);
-		return boardHasSolution ? solution : null;
 		
+		if (!boardHasSolution)
+			return null;
+		
+		// Set the boards to the solution
+		solution.get(0).setBoard(board);
+		for (int n=1; n<solution.size(); n++) {
+			SolutionStep previousStep = solution.get(n-1);
+			solution.get(n).setBoard(applyTransformation(previousStep.getRow(), previousStep.getCol(),
+					previousStep.getDirection(), previousStep.getBoard()));
+		}
+
+		return solution;
 	}
 	
 	/**
