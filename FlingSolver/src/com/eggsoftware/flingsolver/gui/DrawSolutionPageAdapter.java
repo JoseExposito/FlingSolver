@@ -19,10 +19,15 @@ package com.eggsoftware.flingsolver.gui;
 
 import java.util.ArrayList;
 
+import android.R;
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.eggsoftware.flingsolver.solver.SolutionStep;
 
@@ -48,20 +53,45 @@ public class DrawSolutionPageAdapter extends PagerAdapter {
 
 	@Override
 	public boolean isViewFromObject(View view, Object object) {
-		return (view == (BoardCanvas)object);
+		return (view == (LinearLayout)object);
 	}
 
 	@Override  
     public void destroyItem(View collection, int position, Object view) {  
-        ((ViewPager) collection).removeView((BoardCanvas) view);
+        ((ViewPager) collection).removeView((LinearLayout) view);
     }  
 	
 	@Override  
-    public Object instantiateItem(View collection, int position) {        
+    public Object instantiateItem(View collection, int position) {
+		// Create the "Step N of T" TextView
+		TextView stepTextView = new TextView(this.context);
+		stepTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 18);
+		stepTextView.setGravity(Gravity.CENTER);
+		stepTextView.setText(String.format("Step %d of %d", position+1, this.solution.size()));
+		
+		// Add the instructions
+		TextView instrucionsTextView = null;
+		if (position == 0 && this.solution.size() > 1) {
+			instrucionsTextView = new TextView(this.context);
+			instrucionsTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
+			instrucionsTextView.setGravity(Gravity.CENTER);
+			instrucionsTextView.setText("(Swipe left/right to view all the steps of the solution)");
+		}
+		
+		// Create the boar with the current step of the solution
         BoardCanvas board = new BoardCanvas(this.context);
         board.setBoardRepresentation(this.solution.get(position).getBoard());
         board.setArrow(this.solution.get(position).getRow(), this.solution.get(position).getCol(), this.solution.get(position).getDirection());
-        ((ViewPager) collection).addView(board, 0);  
-        return board;
+        
+        // Add the components to the layout
+        LinearLayout layout = new LinearLayout(this.context);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setPadding(16, 20, 16, 16);
+        layout.addView(stepTextView);
+        layout.addView(board);
+        if (instrucionsTextView != null)
+        	layout.addView(instrucionsTextView);
+        ((ViewPager) collection).addView(layout, 0);  
+        return layout;
     }
 }
