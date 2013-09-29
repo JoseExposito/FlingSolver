@@ -44,8 +44,8 @@ public class BoardCanvas extends View {
 	/**
 	 * Paints to draw the board, the Flings and the row.
 	 */
-	private Paint boardPaint;
-	private Paint flingPaint;
+	private Paint emptySquarePaint;
+	private Paint usedSquaredPaint;
 	private Paint arrowPaint;
 
 	/**
@@ -94,16 +94,21 @@ public class BoardCanvas extends View {
      */
     private void init() {
     	// Initialize the painters
-    	this.boardPaint = new Paint();
- 		this.boardPaint.setColor(Color.GRAY);
+    	this.emptySquarePaint = new Paint();
+    	this.emptySquarePaint.setStyle(Paint.Style.STROKE);
+    	this.emptySquarePaint.setStrokeWidth(4);
+ 		this.emptySquarePaint.setARGB(255, 213, 213, 213);
+ 		this.emptySquarePaint.setFlags(Paint.ANTI_ALIAS_FLAG);
  		
- 		this.flingPaint = new Paint();
- 		this.flingPaint.setColor(Color.BLACK);
+ 		this.usedSquaredPaint = new Paint();
+ 		this.usedSquaredPaint.setARGB(255, 113, 113, 113);
+ 		this.usedSquaredPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
  		
  		this.arrowPaint = new Paint();
+ 		this.arrowPaint.setStyle(Paint.Style.FILL);
  		this.arrowPaint.setColor(Color.BLACK);
  		this.arrowPaint.setStrokeWidth(5);
- 		this.arrowPaint.setStyle(Paint.Style.FILL);
+ 		this.arrowPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
  		
  		// Initialize the board
  		this.board = new boolean[BOARD_NUM_ROWS][BOARD_NUM_COLUMNS];
@@ -201,7 +206,9 @@ public class BoardCanvas extends View {
 		float colToX = leftMargin + col * squareSize+squareSize/2;
 		float rowToY = topMargin  + row * squareSize+squareSize/2;
 		
-		canvas.drawCircle(colToX, rowToY, squareSize/2-5, haveFling ? this.flingPaint : this.boardPaint);
+		if (haveFling)
+			canvas.drawCircle(colToX, rowToY, squareSize/2-5, this.usedSquaredPaint);
+		canvas.drawCircle(colToX, rowToY, squareSize/2-5, this.emptySquarePaint);
 	}
 	
 	@Override

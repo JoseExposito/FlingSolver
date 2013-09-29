@@ -1,20 +1,27 @@
-<resources>
-
-    <!--
-        Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-    -->
-    <style name="AppBaseTheme" parent="android:Theme.Light">
-        <!--
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <style name="AppTheme" parent="android:Theme.Light">
+        <item name="android:windowTitleBackgroundStyle">@style/WindowTitleBackground</item>
+        <item name="android:windowTitleStyle">@style/CustomWindowTitle</item>
     </style>
-
-    <!-- Application theme. -->
-    <style name="AppTheme" parent="AppBaseTheme">
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+ 
+    <style name="WindowTitleBackground">     
+        <item name="android:background">@color/title_background_color</item>
+    </style>
+    
+    <style name="CustomWindowTitle" parent="WindowTitle">
+        <item name="android:textAppearance">@style/CustomWindowTitleText</item>
+    </style>
+    
+    <style name="CustomWindowTitleText" parent="android:TextAppearance">
+        <item name="android:textColor">@color/title_text_color</item>
+    </style>
+    
+    <style name="WindowTitle">
+        <item name="android:singleLine">true</item>
+        <item name="android:textAppearance">@style/CustomWindowTitleText</item>
+        <item name="android:shadowColor">#BB000000</item>
+        <item name="android:shadowRadius">2.75</item>
     </style>
 
 </resources>

@@ -7,12 +7,16 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".DrawLevelActivity" >
+    tools:context=".DrawLevelActivity"
+    android:background="@color/activity_background">
 
         <TextView
             android:id="@+id/instructionsText"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="@dimen/text_size"
+            android:textColor="@color/text_color"
             android:text="Draw the Fling! level that you want to solve" />
 
         <com.eggsoftware.flingsolver.gui.BoardCanvas 
@@ -25,6 +29,9 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:onClick="onSolveLevelClicked"
+            android:background="@color/button_background"
+            android:textSize="@dimen/text_size"
+            android:textColor="@color/text_color"
             android:text="Solve Level!" />
         
 </LinearLayout>
