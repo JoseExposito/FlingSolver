@@ -66,7 +66,7 @@ public class DrawLevelActivity extends Activity implements SolveBoardAsyncTaskDe
 	@Override
 	public void boardSolved(SolveBoardAsyncTask task, ArrayList<SolutionStep> solution) {
 		if (solution == null) {
-			Toast.makeText(this.getApplicationContext(), "The level can not be solved", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this.getApplicationContext(), getResources().getString(R.string.can_not_solve_level), Toast.LENGTH_SHORT).show();
 		} else {
 			Intent intent = new Intent(this, DrawSolutionActivity.class);
 			intent.putParcelableArrayListExtra(DrawSolutionActivity.SOLUTION_KEY, solution);

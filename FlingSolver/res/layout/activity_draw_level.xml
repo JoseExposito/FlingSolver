@@ -17,7 +17,7 @@
             android:gravity="center"
             android:textSize="@dimen/text_size"
             android:textColor="@color/text_color"
-            android:text="Draw the Fling! level that you want to solve" />
+            android:text="@string/draw_fling_level" />
 
         <com.eggsoftware.flingsolver.gui.BoardCanvas 
             android:id="@+id/boardCanvas"
@@ -32,6 +32,6 @@
             android:background="@color/button_background"
             android:textSize="@dimen/text_size"
             android:textColor="@color/text_color"
-            android:text="Solve Level!" />
+            android:text="@string/solve_level" />
         
 </LinearLayout>

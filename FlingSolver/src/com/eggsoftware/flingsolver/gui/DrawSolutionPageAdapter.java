@@ -19,7 +19,6 @@ package com.eggsoftware.flingsolver.gui;
 
 import java.util.ArrayList;
 
-import android.R;
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -29,6 +28,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.eggsoftware.flingsolver.R;
 import com.eggsoftware.flingsolver.solver.SolutionStep;
 
 /**
@@ -67,7 +67,7 @@ public class DrawSolutionPageAdapter extends PagerAdapter {
 		TextView stepTextView = new TextView(this.context);
 		stepTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 18);
 		stepTextView.setGravity(Gravity.CENTER);
-		stepTextView.setText(String.format("Step %d of %d", position+1, this.solution.size()));
+		stepTextView.setText(String.format(this.context.getResources().getString(R.string.step_of), position+1, this.solution.size()));
 		
 		// Add the instructions
 		TextView instrucionsTextView = null;
@@ -75,7 +75,7 @@ public class DrawSolutionPageAdapter extends PagerAdapter {
 			instrucionsTextView = new TextView(this.context);
 			instrucionsTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
 			instrucionsTextView.setGravity(Gravity.CENTER);
-			instrucionsTextView.setText("(Swipe left/right to view all the steps of the solution)");
+			instrucionsTextView.setText(this.context.getResources().getString(R.string.swipe_instructions));
 		}
 		
 		// Create the boar with the current step of the solution
