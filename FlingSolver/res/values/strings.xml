@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">Fling! Solver</string>
-    <string name="draw_fling_level">Draw the Fling! level that you want to solve</string>
+    <string name="draw_fling_level">Draw the Fling! level you want to solve</string>
     <string name="solve_level">Solve Level!</string>
     <string name="can_not_solve_level">The level can not be solved</string>
     <string name="step_of">Step %1$d of %2$d</string>

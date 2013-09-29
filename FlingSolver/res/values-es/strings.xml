@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Fling! Solver</string>
+    <string name="draw_fling_level">Dibuja el nivel del Fling! a resolver</string>
+    <string name="solve_level">¡Resolver Nivel!</string>
+    <string name="can_not_solve_level">No se pudo resolver el nivel</string>
+    <string name="step_of">Paso %1$d de %2$d</string>
+    <string name="swipe_instructions">(Desliza a la izquierda/derecha para ver la solución)</string>
+    
+</resources>
