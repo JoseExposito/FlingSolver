@@ -23,7 +23,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.FrameLayout;
+import android.widget.Toast;
 import com.eggsoftware.flingsolver.R;
 import com.eggsoftware.flingsolver.solver.SolutionStep;
 import com.eggsoftware.flingsolver.solver.SolveBoardAsyncTask;
@@ -33,23 +33,16 @@ import com.eggsoftware.flingsolver.solver.SolveBoardAsyncTaskDelegate;
  * Activity where the user can draw the level to solve.
  */
 public class DrawLevelActivity extends Activity implements SolveBoardAsyncTaskDelegate {
-
-	/**
-	 * Canvas where the user can draw their Fling! level.
-	 */
-	private BoardCanvas boardCanvas;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		this.setContentView(R.layout.activity_draw_level);
+		this.setContentView(R.layout.activity_draw_level);		
 		this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		
-		// Add an editable BoardCanvas
-		this.boardCanvas = new BoardCanvas(this);
-		this.boardCanvas.setAcceptEditFlings(true);
-		FrameLayout layout = (FrameLayout)this.findViewById(R.id.mainLayout);
-		layout.addView(this.boardCanvas);
+		// Make the board editable
+		BoardCanvas boardCanvas = (BoardCanvas)this.findViewById(R.id.boardCanvas);
+		boardCanvas.setAcceptEditFlings(true);
 	}
 	
 	/**
@@ -57,19 +50,23 @@ public class DrawLevelActivity extends Activity implements SolveBoardAsyncTaskDe
 	 * Solves the level and shows the steps.
 	 */
 	public void onSolveLevelClicked(View solveLevelButton) {
-		SolveBoardAsyncTask task = new SolveBoardAsyncTask(this, this.boardCanvas.getBoardRepresentation());
+		BoardCanvas boardCanvas = (BoardCanvas)this.findViewById(R.id.boardCanvas);
+		SolveBoardAsyncTask task = new SolveBoardAsyncTask(this, boardCanvas.getBoardRepresentation());
+		
 		try {
 			task.execute();
 		} catch (Exception e) {
-			// TODO Show error
 			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * Called when the level is solved or not have solution.
+	 */
 	@Override
 	public void boardSolved(SolveBoardAsyncTask task, ArrayList<SolutionStep> solution) {
 		if (solution == null) {
-			// TODO Show error
+			Toast.makeText(this.getApplicationContext(), "The level can not be solved", Toast.LENGTH_SHORT).show();
 		} else {
 			Intent intent = new Intent(this, DrawSolutionActivity.class);
 			intent.putParcelableArrayListExtra(DrawSolutionActivity.SOLUTION_KEY, solution);

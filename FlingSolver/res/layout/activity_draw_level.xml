@@ -24,6 +24,12 @@
             android:layout_gravity="top"
             android:text="Draw the Fling! level that you want to solve" />
 
+        <com.eggsoftware.flingsolver.gui.BoardCanvas 
+            android:id="@+id/boardCanvas"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_gravity="top" />
+        
         <Button
             android:id="@+id/solveButton"
             android:layout_width="match_parent"
@@ -31,7 +37,8 @@
             android:layout_gravity="bottom"
             android:onClick="onSolveLevelClicked"
             android:text="Solve Level!" />
-
+        
     </FrameLayout>
 
 </RelativeLayout>
+ 

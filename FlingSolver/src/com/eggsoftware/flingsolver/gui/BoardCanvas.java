@@ -23,6 +23,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
+import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -68,31 +69,46 @@ public class BoardCanvas extends View {
 	private Direction arrowDirection;
 	
 	/**
-	 * Default constructor.
+	 * Necessary constructors to be able to add this view to a XML activity.
 	 */
 	public BoardCanvas(Context context) {
 		super(context);
-		
-		// Initialize the painters
-		this.boardPaint = new Paint();
-		this.boardPaint.setColor(Color.BLACK);
-		
-		this.flingPaint = new Paint();
-		this.flingPaint.setColor(Color.BLACK);
-		
-		this.arrowPaint = new Paint();
-		this.arrowPaint.setColor(Color.BLACK);
-		this.arrowPaint.setStrokeWidth(5);
-		this.arrowPaint.setStyle(Paint.Style.FILL);
-		
-		// Initialize the board
-		this.board = new boolean[BOARD_NUM_ROWS][BOARD_NUM_COLUMNS];
-		for (int row=0; row<BOARD_NUM_ROWS; row++) {
-			for (int col=0; col<BOARD_NUM_COLUMNS; col++) {
-				this.board[row][col] = false;
-			}
-		}
+		this.init();
 	}
+
+	public BoardCanvas(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        this.init();
+    }
+    public BoardCanvas(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        this.init();
+    }
+	
+    /**
+     * Real constructor.
+     */
+    private void init() {
+    	// Initialize the painters
+ 		this.boardPaint = new Paint();
+ 		this.boardPaint.setColor(Color.BLACK);
+ 		
+ 		this.flingPaint = new Paint();
+ 		this.flingPaint.setColor(Color.BLACK);
+ 		
+ 		this.arrowPaint = new Paint();
+ 		this.arrowPaint.setColor(Color.BLACK);
+ 		this.arrowPaint.setStrokeWidth(5);
+ 		this.arrowPaint.setStyle(Paint.Style.FILL);
+ 		
+ 		// Initialize the board
+ 		this.board = new boolean[BOARD_NUM_ROWS][BOARD_NUM_COLUMNS];
+ 		for (int row=0; row<BOARD_NUM_ROWS; row++) {
+ 			for (int col=0; col<BOARD_NUM_COLUMNS; col++) {
+ 				this.board[row][col] = false;
+ 			}
+ 		}
+    }
 	
 	/**
 	 * To allow or not to edit the board by touching.
