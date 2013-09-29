@@ -18,16 +18,20 @@
 package com.eggsoftware.flingsolver.gui;
 
 import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
+
 import com.eggsoftware.flingsolver.R;
 import com.eggsoftware.flingsolver.solver.SolutionStep;
 import com.eggsoftware.flingsolver.solver.SolveBoardAsyncTask;
 import com.eggsoftware.flingsolver.solver.SolveBoardAsyncTaskDelegate;
+import com.google.ads.AdRequest;
+import com.google.ads.AdView;
 
 /**
  * Activity where the user can draw the level to solve.
@@ -43,6 +47,10 @@ public class DrawLevelActivity extends Activity implements SolveBoardAsyncTaskDe
 		// Make the board editable
 		BoardCanvas boardCanvas = (BoardCanvas)this.findViewById(R.id.boardCanvas);
 		boardCanvas.setAcceptEditFlings(true);
+		
+		// Initialize AdMob
+	    AdView adView = ( AdView) findViewById(R.id.adView);
+	    adView.loadAd(new AdRequest());
 	}
 	
 	/**

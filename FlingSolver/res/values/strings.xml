@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="admob_id">a15248884b6a60a</string>
+    
     <string name="app_name">Fling! Solver</string>
     <string name="draw_fling_level">Draw the Fling! level you want to solve</string>
     <string name="solve_level">Solve Level!</string>
