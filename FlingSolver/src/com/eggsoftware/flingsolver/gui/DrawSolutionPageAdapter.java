@@ -60,7 +60,7 @@ public class DrawSolutionPageAdapter extends PagerAdapter {
     public Object instantiateItem(View collection, int position) {        
         BoardCanvas board = new BoardCanvas(this.context);
         board.setBoardRepresentation(this.solution.get(position).getBoard());
-        board.drawArrow(this.solution.get(position).getRow(), this.solution.get(position).getCol(), this.solution.get(position).getDirection());
+        board.setArrow(this.solution.get(position).getRow(), this.solution.get(position).getCol(), this.solution.get(position).getDirection());
         ((ViewPager) collection).addView(board, 0);  
         return board;
     }

@@ -19,10 +19,7 @@ package com.eggsoftware.flingsolver.gui;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Path;
-import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -56,20 +53,17 @@ public class BoardCanvas extends View {
 	/**
 	 * Some values to draw the board.
 	 */
-	private int squareSize = -1;
-	private int topMargin  = -1;
-	private int leftMargin = -1;
+	private int squareSize;
+	private int topMargin;
+	private int leftMargin;
 	private boolean acceptEditFlings = false;
-	private Rect rect = new Rect();
-	Path path = new Path();
 	
 	/**
 	 * To draw an arrow if necessary.
 	 */
 	private boolean drawArrow = false;
-	private int arrowRow  = -1;
-	private int arrowCol  = -1;
-	private int arrowSize = -1;
+	private int arrowRow;
+	private int arrowCol;
 	private Direction arrowDirection;
 	
 	/**
@@ -105,9 +99,8 @@ public class BoardCanvas extends View {
  		this.usedSquaredPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
  		
  		this.arrowPaint = new Paint();
- 		this.arrowPaint.setStyle(Paint.Style.FILL);
- 		this.arrowPaint.setColor(Color.BLACK);
- 		this.arrowPaint.setStrokeWidth(5);
+ 		this.arrowPaint.setARGB(255, 113, 113, 113);
+ 		this.arrowPaint.setStrokeWidth(4);
  		this.arrowPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
  		
  		// Initialize the board
@@ -163,39 +156,15 @@ public class BoardCanvas extends View {
 		// Draw the board
 		for (int row=0; row<BOARD_NUM_ROWS; row++) {
 			for (int col=0; col<BOARD_NUM_COLUMNS; col++) {
-				this.drawSquare(canvas, row, col, this.board[row][col]);
+				if (!(this.drawArrow && this.arrowCol == col && this.arrowRow == row)) {
+					this.drawSquare(canvas, row, col, this.board[row][col]);
+				}
 			}
 		}
 		
 		// Draw the arrow if any
-		if (this.drawArrow && this.arrowSize != -1) {
-			/*if (this.arrowDirection == Direction.UP) {
-				canvas.drawLine(this.colToX(this.arrowCol), this.rowToY(this.arrowRow-1),
-						this.colToX(this.arrowCol), this.rowToY(this.arrowRow-this.arrowSize+1),
-						this.arrowPaint);
-
-				path.moveTo(this.colToX(this.arrowCol), this.rowToY(this.arrowRow-this.arrowSize+1) - this.squareSize/2-5);
-				path.lineTo(this.colToX(this.arrowCol)-this.squareSize/2-5, this.rowToY(this.arrowRow-this.arrowSize+1));
-				path.lineTo(this.colToX(this.arrowCol)-this.squareSize/2+5, this.rowToY(this.arrowRow-this.arrowSize+1));
-				path.lineTo(this.colToX(this.arrowCol), this.rowToY(this.arrowRow-this.arrowSize+1) - this.squareSize/2-5);
-				path.close();
-				canvas.drawPath(path, this.arrowPaint);
-				
-			} else if (this.arrowDirection == Direction.DOWN) {
-				canvas.drawLine(this.colToX(this.arrowCol), this.rowToY(this.arrowRow+1),
-						this.colToX(this.arrowCol), this.rowToY(this.arrowRow+this.arrowSize-1),
-						this.arrowPaint);
-				
-			} else if (this.arrowDirection == Direction.LEFT) {
-				canvas.drawLine(this.colToX(this.arrowCol-1), this.rowToY(this.arrowRow),
-						this.colToX(this.arrowCol-this.arrowSize+1), this.rowToY(this.arrowRow),
-						this.arrowPaint);
-				
-			} else if (this.arrowDirection == Direction.RIGHT) {
-				canvas.drawLine(this.colToX(this.arrowCol+1), this.rowToY(this.arrowRow),
-						this.colToX(this.arrowCol+this.arrowSize-1), this.rowToY(this.arrowRow),
-						this.arrowPaint);
-			}*/
+		if (this.drawArrow) {
+			this.drawArrow(canvas, this.arrowRow, this.arrowCol, this.arrowDirection);
 		}
 	}
 	
@@ -203,12 +172,63 @@ public class BoardCanvas extends View {
 	 * Draws a square with or without Fling!
 	 */
 	private void drawSquare(Canvas canvas, int row, int col, boolean haveFling) {
-		float colToX = leftMargin + col * squareSize+squareSize/2;
-		float rowToY = topMargin  + row * squareSize+squareSize/2;
+		float colToX = leftMargin + col*squareSize + squareSize/2;
+		float rowToY = topMargin  + row*squareSize + squareSize/2;
 		
 		if (haveFling)
 			canvas.drawCircle(colToX, rowToY, squareSize/2-5, this.usedSquaredPaint);
 		canvas.drawCircle(colToX, rowToY, squareSize/2-5, this.emptySquarePaint);
+	}
+	
+	/**
+	 * Draws an arrow in the specified position
+	 */
+	private void drawArrow(Canvas canvas, int row, int col, Direction direction) {
+		float firstPointX  = -1;
+		float firstPointY  = -1;
+		float secondPointX = -1;
+		float secondPointY = -1;
+		float thirdPointX  = -1;
+		float thirdPointY  = -1;
+		
+		int squareX = leftMargin + col*squareSize;
+		int squareY = topMargin  + row*squareSize;
+		
+		if (direction == Direction.UP) {
+			firstPointX  = squareX + squareSize/4;
+			firstPointY  = squareY + 3*squareSize/4;
+			secondPointX = squareX + squareSize/2;
+			secondPointY = squareY + squareSize/4;
+			thirdPointX  = squareX + 3*squareSize/4;
+			thirdPointY  = squareY + 3*squareSize/4;
+			
+		} else if (direction == Direction.DOWN) {
+			firstPointX  = squareX + squareSize/4;
+			firstPointY  = squareY + squareSize/4;
+			secondPointX = squareX + squareSize/2;
+			secondPointY = squareY + 3*squareSize/4;
+			thirdPointX  = squareX + 3*squareSize/4;
+			thirdPointY  = squareY + squareSize/4;
+			
+		} else if (direction == Direction.LEFT) {
+			firstPointX  = squareX + 3*squareSize/4;
+			firstPointY  = squareY + squareSize/4;
+			secondPointX = squareX + squareSize/4;
+			secondPointY = squareY + squareSize/2;
+			thirdPointX  = squareX + 3*squareSize/4;
+			thirdPointY  = squareY + 3*squareSize/4;
+			
+		} else if (direction == Direction.RIGHT) {
+			firstPointX  = squareX + squareSize/4;
+			firstPointY  = squareY + squareSize/4;
+			secondPointX = squareX + 3*squareSize/4;
+			secondPointY = squareY + squareSize/2;
+			thirdPointX  = squareX + squareSize/4;
+			thirdPointY  = squareY + 3*squareSize/4;
+		}
+
+		canvas.drawLine(firstPointX, firstPointY, secondPointX, secondPointY, this.arrowPaint);
+		canvas.drawLine(secondPointX, secondPointY, thirdPointX, thirdPointY, this.arrowPaint);
 	}
 	
 	@Override
@@ -230,44 +250,25 @@ public class BoardCanvas extends View {
 	/**
 	 * Draws an arrow in the specified position and direction.
 	 */
-	public void drawArrow(int row, int col, Direction direction) {
+	public void setArrow(int row, int col, Direction direction) {
 		this.drawArrow = true;
-		this.arrowRow = row;
-		this.arrowCol = col;
 		this.arrowDirection = direction;
 		
-		// Calculate the arrow size
 		if (direction == Direction.UP) {
-			for (int n=row-1; n>=0; n--) {
-				if (this.board[n][col]) {
-					this.arrowSize = row - n;
-					break;
-				}
-			}
+			this.arrowRow = row - 1;
+			this.arrowCol = col;
 			
 		} else if (direction == Direction.DOWN) {
-			for (int n=row+1; n<BOARD_NUM_ROWS; n++) {
-				if (this.board[n][col]) {
-					this.arrowSize = n - row;
-					break;
-				}
-			}
+			this.arrowRow = row + 1;
+			this.arrowCol = col;
 			
 		} else if (direction == Direction.LEFT) {
-			for (int n=col-1; n>=0; n--) {
-				if (this.board[row][n]) {
-					this.arrowSize = col - n;
-					break;
-				}
-			}
+			this.arrowRow = row;
+			this.arrowCol = col - 1;
 			
 		} else if (direction == Direction.RIGHT) {
-			for (int n=col+1; n<BOARD_NUM_ROWS; n++) {
-				if (this.board[row][n]) {
-					this.arrowSize = n - col;
-					break;
-				}
-			}
+			this.arrowRow = row;
+			this.arrowCol = col + 1;
 		}
 		
 		this.invalidate();
