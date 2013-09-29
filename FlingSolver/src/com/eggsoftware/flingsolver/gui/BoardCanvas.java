@@ -29,6 +29,10 @@ import android.view.View;
 
 import com.eggsoftware.flingsolver.solver.BoardSolver.Direction;
 
+/**
+ * Draws the Fling! board. Allows to edit the board if necessary allowing to the users to draw their own Fling! level to
+ * solve.
+ */
 public class BoardCanvas extends View {
 
 	/**
@@ -90,8 +94,8 @@ public class BoardCanvas extends View {
      */
     private void init() {
     	// Initialize the painters
- 		this.boardPaint = new Paint();
- 		this.boardPaint.setColor(Color.BLACK);
+    	this.boardPaint = new Paint();
+ 		this.boardPaint.setColor(Color.GRAY);
  		
  		this.flingPaint = new Paint();
  		this.flingPaint.setColor(Color.BLACK);
@@ -131,57 +135,46 @@ public class BoardCanvas extends View {
 	}
 	
 	/**
-	 * Auxiliary function to calculate once the board margins and size. 
+	 * Called BEFORE the board is painted. Sets the dimensions of the board. 
 	 */
-	private void calculateMargins() {
-		this.squareSize = this.getWidth() / BOARD_NUM_ROWS;
-		this.topMargin  = (this.getHeight() - squareSize*BOARD_NUM_ROWS) / 2;
-		this.leftMargin = (this.getWidth() - squareSize*BOARD_NUM_COLUMNS) / 2;
+	@Override
+	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+		// Calculate the size of the board
+		this.squareSize = MeasureSpec.getSize(widthMeasureSpec) / BOARD_NUM_ROWS;
+		this.leftMargin = (MeasureSpec.getSize(widthMeasureSpec) - squareSize*BOARD_NUM_COLUMNS) / 2;
+		this.topMargin  = this.leftMargin;
+		
+		// Set the size of the board to full width and aspect ratio height
+		int desiredWidth  = MeasureSpec.getSize(widthMeasureSpec);
+		int desiredHeight = this.topMargin + (BOARD_NUM_ROWS * this.squareSize) + this.topMargin;
+		
+		this.setMeasuredDimension(desiredWidth, desiredHeight);
 	}
 	
 	@Override
 	protected void onDraw(Canvas canvas) {
-		super.onDraw(canvas);
+		super.onDraw(canvas);		
 		
-		if (squareSize == -1)
-			this.calculateMargins();
-		
-		// Draw the board borders
-		for (int n=0; n<=BOARD_NUM_COLUMNS; n++) {
-			canvas.drawLine(n*squareSize+leftMargin, topMargin, 
-					n*squareSize+leftMargin, squareSize*BOARD_NUM_ROWS+topMargin, 
-					this.boardPaint);
-		}
-		
-		for (int n=0; n<=BOARD_NUM_ROWS; n++) {
-			canvas.drawLine(leftMargin, topMargin+n*squareSize,
-					leftMargin+BOARD_NUM_COLUMNS*squareSize, topMargin+n*squareSize,
-					this.boardPaint);
-		}
-		
-		// Draw the flings
+		// Draw the board
 		for (int row=0; row<BOARD_NUM_ROWS; row++) {
 			for (int col=0; col<BOARD_NUM_COLUMNS; col++) {
-				if (this.board[row][col]) {
-					canvas.drawCircle(this.colToX(col), this.rowToY(row), squareSize/2-5, this.flingPaint);
-				}
+				this.drawSquare(canvas, row, col, this.board[row][col]);
 			}
 		}
 		
 		// Draw the arrow if any
 		if (this.drawArrow && this.arrowSize != -1) {
-			if (this.arrowDirection == Direction.UP) {
+			/*if (this.arrowDirection == Direction.UP) {
 				canvas.drawLine(this.colToX(this.arrowCol), this.rowToY(this.arrowRow-1),
 						this.colToX(this.arrowCol), this.rowToY(this.arrowRow-this.arrowSize+1),
 						this.arrowPaint);
-				
-				// TODO Draw the arrow head
-				/*path.moveTo(this.colToX(this.arrowCol), this.rowToY(this.arrowRow-this.arrowSize+1) - this.squareSize/2-5);
+
+				path.moveTo(this.colToX(this.arrowCol), this.rowToY(this.arrowRow-this.arrowSize+1) - this.squareSize/2-5);
 				path.lineTo(this.colToX(this.arrowCol)-this.squareSize/2-5, this.rowToY(this.arrowRow-this.arrowSize+1));
 				path.lineTo(this.colToX(this.arrowCol)-this.squareSize/2+5, this.rowToY(this.arrowRow-this.arrowSize+1));
 				path.lineTo(this.colToX(this.arrowCol), this.rowToY(this.arrowRow-this.arrowSize+1) - this.squareSize/2-5);
 				path.close();
-				canvas.drawPath(path, this.arrowPaint);*/
+				canvas.drawPath(path, this.arrowPaint);
 				
 			} else if (this.arrowDirection == Direction.DOWN) {
 				canvas.drawLine(this.colToX(this.arrowCol), this.rowToY(this.arrowRow+1),
@@ -197,35 +190,24 @@ public class BoardCanvas extends View {
 				canvas.drawLine(this.colToX(this.arrowCol+1), this.rowToY(this.arrowRow),
 						this.colToX(this.arrowCol+this.arrowSize-1), this.rowToY(this.arrowRow),
 						this.arrowPaint);
-			}
+			}*/
 		}
 	}
 	
-	private float rowToY(int row) {
-		return topMargin+row*squareSize+squareSize/2;
-	}
-	
-	private float colToX(int col) {
-		return leftMargin+col*squareSize+squareSize/2;
-	}
-	
-	@Override
-	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
-	    ((View)getParent()).getGlobalVisibleRect(rect);
-	    int desiredWidth = rect.right - rect.left;
-	    int desiredHeight = rect.bottom - rect.top;
-
-	    this.setMeasuredDimension(desiredWidth, desiredHeight);
+	/**
+	 * Draws a square with or without Fling!
+	 */
+	private void drawSquare(Canvas canvas, int row, int col, boolean haveFling) {
+		float colToX = leftMargin + col * squareSize+squareSize/2;
+		float rowToY = topMargin  + row * squareSize+squareSize/2;
+		
+		canvas.drawCircle(colToX, rowToY, squareSize/2-5, haveFling ? this.flingPaint : this.boardPaint);
 	}
 	
 	@Override
 	public boolean onTouchEvent (MotionEvent event) {
 		int action = event.getAction() & MotionEvent.ACTION_MASK;
 		if (this.acceptEditFlings && action == MotionEvent.ACTION_DOWN) {
-			if (squareSize == -1)
-				this.calculateMargins();
 			int touchedRow = (int)((event.getY() - this.topMargin) / this.squareSize);
 			int touchedCol = (int)((event.getX() - this.leftMargin) / this.squareSize);
 			
