@@ -24,6 +24,8 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import com.eggsoftware.flingsolver.R;
 import com.eggsoftware.flingsolver.solver.SolutionStep;
+import com.google.ads.AdRequest;
+import com.google.ads.AdView;
 
 /**
  * Activity with a ViewPager to present the solution of a Fling! level.
@@ -51,6 +53,10 @@ public class DrawSolutionActivity extends Activity {
 		
 		// Add the pages to the ViewPager
 		ViewPager pager = (ViewPager) findViewById(R.id.viewPager);  
-        pager.setAdapter(new DrawSolutionPageAdapter(this, this.solution)); 
+        pager.setAdapter(new DrawSolutionPageAdapter(this, this.solution));
+        
+        // Initialize AdMob
+	    AdView adView = (AdView) findViewById(R.id.adView);
+	    adView.loadAd(new AdRequest());
 	}	
 }

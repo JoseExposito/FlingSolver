@@ -49,7 +49,7 @@ public class DrawLevelActivity extends Activity implements SolveBoardAsyncTaskDe
 		boardCanvas.setAcceptEditFlings(true);
 		
 		// Initialize AdMob
-	    AdView adView = ( AdView) findViewById(R.id.adView);
+	    AdView adView = (AdView) findViewById(R.id.adView);
 	    adView.loadAd(new AdRequest());
 	}
 	
