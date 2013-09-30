@@ -18,10 +18,11 @@
 package com.eggsoftware.flingsolver.gui;
 
 import java.util.ArrayList;
+
 import android.app.Activity;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+
 import com.eggsoftware.flingsolver.R;
 import com.eggsoftware.flingsolver.solver.SolutionStep;
 import com.google.ads.AdRequest;
@@ -46,7 +47,6 @@ public class DrawSolutionActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.activity_draw_solution);
-		this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 	
 		// Get the solution from the intent
 		this.solution = this.getIntent().getExtras().getParcelableArrayList(SOLUTION_KEY);

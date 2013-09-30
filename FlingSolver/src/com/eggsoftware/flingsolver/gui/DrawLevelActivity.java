@@ -21,7 +21,6 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -42,7 +41,6 @@ public class DrawLevelActivity extends Activity implements SolveBoardAsyncTaskDe
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.activity_draw_level);		
-		this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		
 		// Make the board editable
 		BoardCanvas boardCanvas = (BoardCanvas)this.findViewById(R.id.boardCanvas);
