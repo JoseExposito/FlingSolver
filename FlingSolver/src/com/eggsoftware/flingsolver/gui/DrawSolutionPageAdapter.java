@@ -69,15 +69,6 @@ public class DrawSolutionPageAdapter extends PagerAdapter {
 		stepTextView.setGravity(Gravity.CENTER);
 		stepTextView.setText(String.format(this.context.getResources().getString(R.string.step_of), position+1, this.solution.size()));
 		
-		// Add the instructions
-		TextView instrucionsTextView = null;
-		if (position == 0 && this.solution.size() > 1) {
-			instrucionsTextView = new TextView(this.context);
-			instrucionsTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
-			instrucionsTextView.setGravity(Gravity.CENTER);
-			instrucionsTextView.setText(this.context.getResources().getString(R.string.swipe_instructions));
-		}
-		
 		// Create the boar with the current step of the solution
         BoardCanvas board = new BoardCanvas(this.context);
         board.setBoardRepresentation(this.solution.get(position).getBoard());
@@ -89,8 +80,6 @@ public class DrawSolutionPageAdapter extends PagerAdapter {
         layout.setPadding(16, 20, 16, 16);
         layout.addView(stepTextView);
         layout.addView(board);
-        if (instrucionsTextView != null)
-        	layout.addView(instrucionsTextView);
         ((ViewPager) collection).addView(layout, 0);  
         return layout;
     }

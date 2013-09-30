@@ -1,46 +1,64 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:paddingBottom="0dp"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".DrawLevelActivity"
     android:background="@color/activity_background">
 
         <TextView
             android:id="@+id/instructionsText"
+            android:gravity="center_vertical|center_horizontal"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:padding="10dp"
+            
             android:textSize="@dimen/text_size"
             android:textColor="@color/text_color"
             android:text="@string/draw_fling_level" />
 
-        <com.eggsoftware.flingsolver.gui.BoardCanvas 
-            android:id="@+id/boardCanvas"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
-         
+        <RelativeLayout
+	        android:id="@+id/canvas"
+	        android:layout_width="match_parent"
+	        android:layout_height="0dp"
+	        android:layout_weight="1">
+	        
+	        <com.eggsoftware.flingsolver.gui.BoardCanvas 
+	            android:id="@+id/boardCanvas"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content" />
+	        
+        </RelativeLayout> 
+        
         <Button
             android:id="@+id/solveButton"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            
             android:onClick="onSolveLevelClicked"
             android:background="@color/button_background"
             android:textSize="@dimen/text_size"
             android:textColor="@color/text_color"
             android:text="@string/solve_level" />
         
-        <com.google.ads.AdView
-            xmlns:googleads="http://schemas.android.com/apk/lib/com.google.ads"
-            android:id="@+id/adView"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            googleads:adSize="BANNER"
-            googleads:adUnitId="@string/admob_id" />
+        <RelativeLayout 
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content">
+		        
+	        <com.google.ads.AdView
+	            xmlns:googleads="http://schemas.android.com/apk/lib/com.google.ads"
+	            android:id="@+id/adView"
+	            android:gravity="center" 
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            
+	            googleads:adSize="BANNER"
+	            googleads:adUnitId="@string/admob_id" />
+        </RelativeLayout>
         
 </LinearLayout>

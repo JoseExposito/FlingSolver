@@ -138,9 +138,10 @@ public class BoardCanvas extends View {
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		// Calculate the size of the board
-		this.squareSize = MeasureSpec.getSize(widthMeasureSpec) / BOARD_NUM_ROWS;
-		this.leftMargin = (MeasureSpec.getSize(widthMeasureSpec) - squareSize*BOARD_NUM_COLUMNS) / 2;
-		this.topMargin  = this.leftMargin;
+		this.squareSize = Math.min(MeasureSpec.getSize(widthMeasureSpec) / BOARD_NUM_COLUMNS, 
+				MeasureSpec.getSize(heightMeasureSpec) / BOARD_NUM_ROWS);
+		this.leftMargin = (MeasureSpec.getSize(widthMeasureSpec)  - squareSize*BOARD_NUM_COLUMNS) / 2;
+		this.topMargin  = (MeasureSpec.getSize(heightMeasureSpec) - squareSize*BOARD_NUM_ROWS)    / 2;
 				
 		// Set the size of the board to full width and aspect ratio height
 		int desiredWidth  = MeasureSpec.getSize(widthMeasureSpec);

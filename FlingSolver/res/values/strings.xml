@@ -8,6 +8,5 @@
     <string name="solve_level">Solve Level!</string>
     <string name="can_not_solve_level">The level can not be solved</string>
     <string name="step_of">Step %1$d of %2$d</string>
-    <string name="swipe_instructions">(Swipe left/right to view all the steps of the solution)</string>
     
 </resources>
