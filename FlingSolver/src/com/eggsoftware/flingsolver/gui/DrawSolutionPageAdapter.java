@@ -20,12 +20,16 @@ package com.eggsoftware.flingsolver.gui;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.eggsoftware.flingsolver.R;
@@ -65,7 +69,8 @@ public class DrawSolutionPageAdapter extends PagerAdapter {
     public Object instantiateItem(View collection, int position) {
 		// Create the "Step N of T" TextView
 		TextView stepTextView = new TextView(this.context);
-		stepTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 18);
+		stepTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16);
+		stepTextView.setTextColor(Color.rgb(113, 113, 113));
 		stepTextView.setGravity(Gravity.CENTER);
 		stepTextView.setText(String.format(this.context.getResources().getString(R.string.step_of), position+1, this.solution.size()));
 		
@@ -78,8 +83,13 @@ public class DrawSolutionPageAdapter extends PagerAdapter {
         LinearLayout layout = new LinearLayout(this.context);
         layout.setOrientation(LinearLayout.VERTICAL);
         layout.setPadding(16, 20, 16, 16);
+        
+        RelativeLayout relativeLatout = new RelativeLayout(this.context);
+        relativeLatout.setLayoutParams(new TableLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 1f));
+        relativeLatout.addView(board);
+        
+        layout.addView(relativeLatout);
         layout.addView(stepTextView);
-        layout.addView(board);
         ((ViewPager) collection).addView(layout, 0);  
         return layout;
     }

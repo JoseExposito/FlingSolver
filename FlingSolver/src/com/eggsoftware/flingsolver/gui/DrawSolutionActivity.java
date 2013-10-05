@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.widget.Toast;
 
 import com.eggsoftware.flingsolver.R;
 import com.eggsoftware.flingsolver.solver.SolutionStep;
@@ -59,4 +61,11 @@ public class DrawSolutionActivity extends Activity {
 	    AdView adView = (AdView) findViewById(R.id.adView);
 	    adView.loadAd(new AdRequest());
 	}	
+	
+	/**
+	 * Called when the help button is pressed.
+	 */
+	public void onHelpClicked(View solveLevelButton) {
+		Toast.makeText(this.getApplicationContext(), getResources().getString(R.string.swipe_instructions), Toast.LENGTH_SHORT).show();
+	}
 }

@@ -79,5 +79,11 @@ public class DrawLevelActivity extends Activity implements SolveBoardAsyncTaskDe
 			this.startActivity(intent);	
 		}
 	}
-	
+
+	/**
+	 * Called when the help button is pressed.
+	 */
+	public void onHelpClicked(View solveLevelButton) {
+		Toast.makeText(this.getApplicationContext(), getResources().getString(R.string.draw_fling_level), Toast.LENGTH_SHORT).show();
+	}
 }

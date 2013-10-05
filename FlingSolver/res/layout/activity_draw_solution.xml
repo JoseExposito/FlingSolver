@@ -5,32 +5,71 @@
     android:orientation="vertical"
     android:background="@color/activity_background">
     
-    <RelativeLayout
-            android:id="@+id/canvas"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-            
-	    <android.support.v4.view.ViewPager
-	        android:gravity="center"
-	        android:padding="0dp"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        
-	        android:textSize="@dimen/text_size"
-	        android:textColor="@color/text_color"
-	        android:id="@+id/viewPager" />
-    
-    </RelativeLayout>
-    
-    <com.google.ads.AdView
-            xmlns:googleads="http://schemas.android.com/apk/lib/com.google.ads"
-            android:id="@+id/adView"
-            android:gravity="center"
-            android:padding="0dp" 
+        <!-- Personalized action bar -->
+        <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            googleads:adSize="BANNER"
-            googleads:adUnitId="@string/admob_id" />
-	
+            android:layout_height="wrap_content">
+            
+            <TextView
+                android:id="@+id/appTitle"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_alignParentLeft="true"  
+                android:layout_width="fill_parent"    
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                
+                android:textSize="@dimen/title_text_size"
+                android:textColor="@color/title_text_color"
+                android:text="@string/app_name" />
+            
+            <Button
+                android:id="@+id/helpButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"  
+                android:layout_alignParentRight="true"
+                
+                android:onClick="onHelpClicked"
+                android:background="@android:color/transparent"
+                android:textSize="@dimen/title_text_size"
+                android:textColor="@color/title_text_color"
+                android:text="@string/help" />
+            
+            <View android:layout_width="fill_parent"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+            
+                android:layout_height="1dp"
+                android:layout_below="@+id/appTitle"
+                android:background="@color/button_background" />
+            
+        </RelativeLayout>
+	        
+	    <RelativeLayout
+	            android:id="@+id/canvas"
+	            android:layout_width="match_parent"
+	            android:layout_height="0dp"
+	            android:layout_weight="1">
+	            
+		    <android.support.v4.view.ViewPager
+		        android:gravity="center"
+		        android:padding="0dp"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        
+		        android:textSize="@dimen/text_size"
+		        android:textColor="@color/text_color"
+		        android:id="@+id/viewPager" />
+	    
+	    </RelativeLayout>
+	    
+	    <com.google.ads.AdView
+	            xmlns:googleads="http://schemas.android.com/apk/lib/com.google.ads"
+	            android:id="@+id/adView"
+	            android:gravity="center"
+	            android:padding="0dp" 
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            googleads:adSize="BANNER"
+	            googleads:adUnitId="@string/admob_id" />
+		
 </LinearLayout>

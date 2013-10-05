@@ -5,5 +5,6 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     
     <dimen name="text_size">18dp</dimen>
+    <dimen name="title_text_size">22dp</dimen>
 
 </resources>
