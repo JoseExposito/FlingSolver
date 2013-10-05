@@ -58,8 +58,8 @@ public class BoardSolver {
 		
 		// Solve the board
 		int numberOfFlings = BoardSolver.getNumberOfFlingsInBoard(boardCopy);
-		if (numberOfFlings == 0) {
-			Log.d(TAG, "The boar  haven't got flings");
+		if (numberOfFlings == 0 || numberOfFlings == 1) {
+			Log.d(TAG, "The boar  has 0 or 1 Fling!");
 			return null;
 		}
 		
